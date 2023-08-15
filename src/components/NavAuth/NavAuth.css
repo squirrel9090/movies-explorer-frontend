@@ -1,0 +1,47 @@
+.nav-auth {
+  margin: -3px 1px 0 0;
+}
+
+.nav-auth__link {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none;
+  letter-spacing: 0;
+  text-align: right;
+  padding: 6px 0 0;
+}
+
+.nav-auth__button {
+  background: #3ddc84;
+  color: #000;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 8px 20px;
+}
+
+.nav-auth__links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #fff;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none;
+  list-style: none;
+}
+
+.nav-auth__link-item {
+  padding: 0;
+  margin: 0 30px 0 0;
+}
+
+.nav-auth__link-item:last-of-type {
+  margin: 0;
+}

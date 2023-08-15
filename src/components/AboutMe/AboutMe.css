@@ -1,0 +1,109 @@
+.aboutme {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  max-width: 1280px;
+}
+
+.aboutme__title {
+  width: 89%;
+  margin: 111px 0 65px 0px;
+  color: #fff;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+  border-bottom: 1px solid #dadada;
+  padding-bottom: 24px;
+}
+
+.aboutme__profile {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  margin-bottom: 100px;
+  width: 89%;
+}
+
+.aboutme__discription {
+  max-width: 53%;
+  color: #fff;
+}
+
+.aboutme__avtor {
+  margin: 0;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -2px;
+}
+
+.aboutme__job {
+  margin: 20px 0px 0 0px;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.aboutme__text {
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 24px 0px 97px 0px;
+}
+
+.aboutme__link {
+  text-decoration: none;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: #fff;
+}
+
+.aboutme__avatar {
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 850px) {
+  .aboutme__title {
+    width: 87%;
+    margin: 90px 0 67px 0px;
+  }
+
+  .aboutme__avtor {
+    margin: 0;
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.6px;
+  }
+
+  .aboutme__profile {
+    margin-bottom: 90px;
+    width: 87%;
+  }
+
+  .aboutme__job {
+    margin: 15px 0px 0 0px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .aboutme__text {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 19px 0px 86px 0px;
+  }
+
+  .aboutme__avatar {
+    max-width: 255px;
+  }
+}

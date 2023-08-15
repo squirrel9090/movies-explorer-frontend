@@ -1,0 +1,140 @@
+.aboutproject {
+  display: flex;
+  flex-direction: column;
+  margin: 94px auto 0;
+  max-width: 1280px;
+}
+
+.aboutproject__title {
+  max-width: 1140px;
+  margin: 16px 0 71px 20px;
+  color: #fff;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+  border-bottom: 1px solid #dadada;
+  padding-bottom: 24px;
+}
+
+.aboutproject__discription {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0px 110px 20px;
+}
+
+.aboutproject__container {
+  display: flex;
+  margin: 0;
+  justify-items: start;
+  text-align: start;
+}
+
+.aboutproject__subtitle {
+  max-width: 550px;
+  padding: 0;
+  margin: 0 0 25px 0px;
+  color: #fff;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.8px;
+}
+
+.aboutproject__text {
+  padding: 0;
+  margin: 0 20px 0 0;
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  max-width: 550px;
+}
+
+.aboutproject__timeline-title {
+  margin: 0;
+  padding: 9px 14px;
+  background-color: #3ddc84;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+}
+
+.aboutproject__timeline-title_color-black {
+  color: #fff;
+  background-color: #303030;
+}
+
+.aboutproject__timeline {
+  display: flex;
+  max-width: 1140px;
+  margin-bottom: 111px;
+  margin-left: 20px;
+}
+
+.aboutproject__backend {
+  width: 20%;
+}
+
+.aboutproject__frontend {
+  width: 80%;
+}
+
+.aboutproject__timeline-text {
+  margin: 14px 0 0;
+  color: #8b8b8b;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  text-align: center;
+}
+
+@media screen and (max-width: 850px) {
+  .aboutproject {
+    margin: 75px auto 0;
+  }
+
+  .aboutproject__container {
+    max-width: 668px;
+  }
+
+  .aboutproject__title {
+    margin: 16px 0 71px 0px;
+    max-width: 668px;
+  }
+  .aboutproject__discription {
+    margin: 0 0px 92px 0px;
+  }
+
+  .aboutproject__subtitle {
+    max-width: 319px;
+    margin: 0 0 20px 0px;
+  }
+
+  .aboutproject__text {
+    max-width: 319px;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+  }
+  .aboutproject__discription:last-of-type {
+    margin-left: 30px;
+  }
+
+  .aboutproject__timeline {
+    margin-bottom: 92px;
+    margin-left: 0;
+  }
+
+  .aboutproject__backend {
+    width: 21%;
+  }
+
+  .aboutproject__frontend {
+    width: 79%;
+  }
+}
