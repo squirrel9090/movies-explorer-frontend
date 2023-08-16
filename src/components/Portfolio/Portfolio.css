@@ -74,3 +74,37 @@
     letter-spacing: -1.12px;
   }
 }
+
+@media screen and (max-width: 450px) {
+  .portfolio {
+    margin-bottom: 70px;
+  }
+
+  .portfolio__title {
+    margin: 0 14px 31px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .portfolio__links {
+    margin: 0 13px;
+  }
+
+  .portfolio__subtitle {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .portfolio__arrow {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: -0.72px;
+    text-align: center;
+    padding-top: 9px;
+  }
+
+  .portfolio__links-item {
+    margin-bottom: 7px;
+  }
+}

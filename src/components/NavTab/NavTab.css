@@ -35,3 +35,16 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+@media screen and (max-width: 450px) {
+  .navtab__link {
+    border-radius: 6px;
+    width: 78px;
+    height: 26px;
+    font-size: 10px;
+  }
+
+  .navtab__list {
+    padding: 0 0 16px 0;
+  }
+}

@@ -107,3 +107,50 @@
     max-width: 255px;
   }
 }
+
+@media screen and (max-width: 450px) {
+  .aboutme__profile {
+    width: 91%;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    margin-bottom: 70px;
+  }
+
+  .aboutme__title {
+    width: 91%;
+    margin: 93px 0 67px 0px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding-bottom: 29px;
+  }
+
+  .aboutme__avatar {
+    width: 292px;
+    height: 352px;
+    max-width: 292px;
+    object-fit: cover;
+  }
+
+  .aboutme__avtor {
+    margin: 32px 0 0 0;
+    font-size: 30px;
+    line-height: normal;
+    letter-spacing: -1.2px;
+  }
+
+  .aboutme__job {
+    margin: 21px 0px 0 0px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .aboutme__text {
+    font-size: 11px;
+    line-height: 16px;
+    margin: 19px 0px 40px 0px;
+  }
+
+  .aboutme__discription {
+    max-width: 100%;
+  }
+}

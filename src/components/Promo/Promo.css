@@ -32,6 +32,17 @@
     padding-bottom: 313px;
     font-size: 40px;
     line-height: 52px;
+    max-width: 292px;
+    letter-spacing: -1.16px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .promo__title {
+    padding-top: 223px;
+    padding-bottom: 212px;
+    font-size: 29px;
+    line-height: 37px;
     max-width: 668px;
   }
 }

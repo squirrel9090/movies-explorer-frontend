@@ -206,3 +206,17 @@
     margin-right: 23px;
   }
 }
+
+@media screen and (max-width: 450px) {
+  .navigation__sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-left: 5px;
+  }
+
+  .info__button {
+    display: none;
+  }
+}

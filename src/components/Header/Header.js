@@ -12,8 +12,8 @@ const Header = ({ loggedIn }) => {
       <Link to='/' className='header__link header__link_logo link'>
         {<img className='header__logo' src={headerLogo} alt='Логотип' />}
       </Link>
-      {loggedIn && <NavAuth />}
-      {!loggedIn && <Navigation />}
+      {!loggedIn && <NavAuth />}
+      {loggedIn && <Navigation />}
     </header>
   )
 }

@@ -1,0 +1,26 @@
+.movies {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 100%;
+}
+.movies__add-cards {
+  margin: 0;
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid #424242;
+  background: transparent;
+  margin-bottom: 79px;
+  margin-top: 50px;
+  width: 320px;
+  height: 36px;
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  align-self: center;
+  cursor: pointer;
+}

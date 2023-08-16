@@ -45,3 +45,11 @@
     margin-left: 14px;
   }
 }
+
+@media screen and (max-width: 450px) {
+  .header {
+    max-width: 1140px;
+    padding: 10px 0 27px;
+    margin: 0 auto;
+  }
+}
