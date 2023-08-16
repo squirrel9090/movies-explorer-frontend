@@ -13,7 +13,7 @@ function NavAuth() {
             Регистрация
           </Link>
         </li>
-        <li className='auth__link-item'>
+        <li className='nav-auth__link-item'>
           <Link
             to='/signin'
             className='nav-auth__link nav-auth__link_type_signin'
