@@ -49,17 +49,35 @@
 .card__btn {
   margin: 0;
   padding: 0;
-  width: 16px;
-  height: 16px;
+  width: 21px;
+  height: 21px;
   border: none;
   cursor: pointer;
 }
 
-.card__btn__blank {
+.card__button {
+  width: 72px;
+  height: 21px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #313131;
+  color: #fff;
+  text-align: center;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 9px;
+  border: none;
+  position: relative;
+  top: -197px;
+  left: 281px;
+}
+
+.card__button_blank {
   background: url(../../images/save-film.svg) transparent no-repeat center;
 }
 
-.card__btn_saved {
+.card__button_saved {
   background: url(../../images/save-film_act.svg) transparent no-repeat center;
 }
 

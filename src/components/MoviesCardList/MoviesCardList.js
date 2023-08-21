@@ -1,15 +1,34 @@
 import React from 'react'
 import './MoviesCardList.css'
+import Preloader from '../Preloader/Preloader'
 import MoviesCard from '../MoviesCard/MoviesCard'
 
-function MoviesCardList(props) {
+function MoviesCardList({
+  movies,
+  searchRequest,
+  statusPreloader,
+  handleSavedMovie,
+}) {
   return (
     <section className='moviescardlist'>
-      <ul className='moviescardlist__list'>
-        {props.cards.map((card, index) => (
-          <MoviesCard key={index} />
-        ))}
-      </ul>
+      {statusPreloader ? (
+        <Preloader />
+      ) : (
+        <ul className='moviescardlist__list'>
+          {movies.map((movie) => (
+            <MoviesCard
+              key={movie.movieId}
+              movie={movie}
+              handleSavedMovie={handleSavedMovie}
+            />
+          ))}
+          {movies.length === 0 && searchRequest && !statusPreloader && (
+            <li>
+              <span className='moviescardlist__text'>Ничего не найдено</span>
+            </li>
+          )}
+        </ul>
+      )}
     </section>
   )
 }
