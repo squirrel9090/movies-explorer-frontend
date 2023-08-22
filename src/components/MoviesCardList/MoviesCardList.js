@@ -51,7 +51,7 @@ const MoviesCardList = ({ cards = [], isCanLoadMore = true }) => {
       {Cards.length ? (
         <ul className='moviescardlist__list'>
           {Cards.map((card) => (
-            <MoviesCard key={card.id} card={card} />
+            <MoviesCard key={card._id} card={card} />
           ))}
         </ul>
       ) : (

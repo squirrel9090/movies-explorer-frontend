@@ -9,8 +9,8 @@ import { SHORT_MOVIE_DURATION } from '../../utils/constants'
 import { searchMoviesByText } from '../../utils/searchMoviesByText'
 
 function SavedMovies(props) {
-  const { movies = [] } = props
-  const [filterMovies, setFilterMovies] = useState(movies)
+  const { cards = [] } = props
+  const [filterMovies, setFilterMovies] = useState(cards)
   const [filter, setFilter] = useState({
     searchText: '',
     isShortMovies: false,
@@ -21,8 +21,8 @@ function SavedMovies(props) {
   }, [filter.isShortMovies])
 
   const handleSearch = () => {
-    const result = searchMoviesByText(movies, filter.searchText).filter(
-      (movie) => (filter.isShortMovies ? movie.duration < 40 : true)
+    const result = searchMoviesByText(cards, filter.searchText).filter(
+      (cards) => (filter.isShortMovies ? cards.duration < 40 : true)
     )
     setFilterMovies(result)
   }
