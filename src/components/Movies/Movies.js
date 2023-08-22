@@ -78,12 +78,7 @@ function Movies({ isLoggedIn }) {
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className='movies'>
-        <SearchForm
-          filter={filter}
-          onChangeFilter={setFilter}
-          onSearch={handleSearch}
-          page='movies'
-        />
+        <SearchForm filterMovies={filterMovies} page='movies' />
         <MoviesCardList cards={filterMovies} />
       </main>
       <Footer />

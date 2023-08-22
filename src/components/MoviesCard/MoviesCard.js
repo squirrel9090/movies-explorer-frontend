@@ -14,7 +14,7 @@ const MOVIES_API_URL = 'https://api.nomoreparties.co'
 const MoviesCard = ({ card }) => {
   const { list, onChange } = useContext(SaveContext)
   const savedCard = list.find((item) => item.movieId === card.id)
-
+  const location = useLocation()
   function handleFavoriteToogle() {
     console.log('card:', card)
 
@@ -54,7 +54,7 @@ const MoviesCard = ({ card }) => {
           }
         />
       </a>
-      {pathname === '/saved-movies' ? (
+      {location.pathname === '/saved-movies' ? (
         <button
           className='card__btn card__btn_delete '
           type='button'

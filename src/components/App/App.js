@@ -7,7 +7,7 @@ import Register from '../Register/Register'
 import Profile from '../Profile/Profile'
 import Login from '../Login/Login'
 import NotFound from '../NotFound/NotFound'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CurrentUserContext } from '../../context/CurrentUserContext'
 import {
   Routes,
