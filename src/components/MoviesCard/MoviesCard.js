@@ -16,13 +16,12 @@ const MoviesCard = ({ card }) => {
   const savedCard = list.find((item) => item.movieId === card.id)
 
   function handleFavoriteToogle() {
-    if (savedCard) {
-      handleRemove(savedCard?._id)
-    } else {
-      savedMovie(card).then(({ data }) => {
-        onChange([...list, data])
-      })
-    }
+    console.log('card:', card)
+
+    savedMovie(card).then((data) => {
+      console.log('data', data)
+      onChange([...list, data])
+    })
   }
 
   const handleRemove = (id) => {
