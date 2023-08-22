@@ -66,7 +66,7 @@ export const getAllFilms = () => {
 }
 
 export const deleteMovie = (id) => {
-  return fetch(`${BASE_URL}/movies?cardId=${id}`, {
+  return fetch(`${BASE_URL}/movies/${id}`, {
     method: 'DELETE',
     headers,
   }).then(getJson)

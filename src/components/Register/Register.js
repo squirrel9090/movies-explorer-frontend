@@ -137,7 +137,7 @@ function Register({ registerUser, setRegisterError }) {
             value={name}
             onChange={handleChangeName}
           />
-          <p className='form__error'>Что-то пошло не так...</p>
+          <p className='form__error'>{nameError}</p>
         </div>
 
         <div className='form__item'>
@@ -151,7 +151,7 @@ function Register({ registerUser, setRegisterError }) {
             onChange={handleChangeEmail}
             value={email}
           />
-          <p className='form__error'>Что-то пошло не так...</p>
+          <p className='form__error'>{emailError}</p>
         </div>
 
         <div className='form__item'>
@@ -167,9 +167,7 @@ function Register({ registerUser, setRegisterError }) {
             onChange={handleChangePassword}
             value={password}
           />
-          <p className='form__error form__error-display'>
-            Что-то пошло не так...
-          </p>
+          <p className='form__error form__error-display'>{passwordError}</p>
         </div>
       </Form>
     </main>
