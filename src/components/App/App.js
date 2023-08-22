@@ -37,10 +37,10 @@ function App() {
 
   //получить токен
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      const jwt = localStorage.getItem('token')
-      setToken(jwt)
-      if (jwt) {
+    if (localStorage.getItem('jwt')) {
+      const token = localStorage.getItem('jwt')
+      setToken(token)
+      if (token) {
         getUserData()
           .then((user) => {
             setCurrentUser(user)
@@ -70,7 +70,7 @@ function App() {
   function handleLogin(loginData) {
     login(loginData)
       .then((res) => {
-        localStorage.setItem('jwt', res.token)
+        localStorage.setItem('jwt', res._id)
         navigate('/movies')
         setIsLoggedIn(true)
       })
@@ -112,7 +112,7 @@ function App() {
   //выход из аккаунта
   function logOut() {
     setToken(null)
-    localStorage.removeItem('token')
+    localStorage.clear()
     setIsLoggedIn(false)
     setCurrentUser({})
     navigate('/signin')

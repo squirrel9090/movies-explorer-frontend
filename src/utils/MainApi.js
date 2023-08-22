@@ -19,7 +19,7 @@ const getJson = (res) => {
 }
 
 export const setToken = (token) => {
-  headers.Authorization = `Bearer ${token}`
+  headers.Authorization = `${token}`
 }
 
 export const register = (data) => {
@@ -72,10 +72,22 @@ export const deleteMovie = (id) => {
   }).then(getJson)
 }
 
-export const savedMovie = (movie) => {
+export const savedMovie = (obj) => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'POST',
     headers,
-    body: JSON.stringify(movie),
+    body: JSON.stringify({
+      country: obj.country,
+      director: obj.director,
+      duration: obj.duration,
+      year: obj.year,
+      description: obj.description,
+      image: MOVIES_API_URL + obj.image.url,
+      trailerLink: obj.trailerLink,
+      thumbnail: MOVIES_API_URL + obj.image.formats.thumbnail.url,
+      movieId: obj.id,
+      nameRU: obj.nameRU,
+      nameEN: obj.nameEN,
+    }),
   }).then(getJson)
 }
