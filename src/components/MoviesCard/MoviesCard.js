@@ -1,8 +1,6 @@
 import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import './MoviesCard.css'
-import Film from '../../images/film.png'
-import { MOVIE_HOUR_IN_MINUTES } from '../../utils/constants'
 import { deleteMovie, savedMovie } from '../../utils/MainApi'
 import { durationConverter } from '../../utils/durationConverter'
 
@@ -14,7 +12,7 @@ const MOVIES_API_URL = 'https://api.nomoreparties.co'
 const MoviesCard = ({ card }) => {
   const { list, onChange } = useContext(SaveContext)
   const savedCard = list.find((item) => item.movieId === card.id)
-  const location = useLocation()
+
   function handleFavoriteToogle() {
     console.log('card:', card)
 
@@ -54,7 +52,7 @@ const MoviesCard = ({ card }) => {
           }
         />
       </a>
-      {location.pathname === '/saved-movies' ? (
+      {pathname === '/saved-movies' ? (
         <button
           className='card__btn card__btn_delete '
           type='button'

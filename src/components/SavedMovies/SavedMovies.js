@@ -4,17 +4,32 @@ import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import { setToken, getAllFilms, deleteMovie } from '../../utils/MainApi'
-import { SHORT_MOVIE_DURATION } from '../../utils/constants'
+import { getAllFilms } from '../../utils/MainApi'
 import { searchMoviesByText } from '../../utils/searchMoviesByText'
+import Preloader from '../Preloader/Preloader'
 
 function SavedMovies(props) {
   const { cards = [] } = props
+  const [isLoading, setIsLoading] = useState(false)
   const [filterMovies, setFilterMovies] = useState(cards)
   const [filter, setFilter] = useState({
     searchText: '',
     isShortMovies: false,
   })
+
+  useEffect(() => {
+    setIsLoading(true)
+    getAllFilms()
+      .then((data) => {
+        setFilterMovies(data)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [])
 
   useEffect(() => {
     handleSearch(filter)
@@ -29,16 +44,22 @@ function SavedMovies(props) {
 
   return (
     <>
-      <Header isLoggedIn={props.isLoggedIn} />
-      <main className='savedmovies'>
-        <SearchForm
-          filter={filter}
-          onChangeFilter={setFilter}
-          onSearch={handleSearch}
-        />
-        <MoviesCardList cards={filterMovies} buttonMore={false} />
-      </main>
-      <Footer />
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <>
+          <Header isLoggedIn={props.isLoggedIn} />
+          <main className='savedmovies'>
+            <SearchForm
+              filter={filter}
+              onChangeFilter={setFilter}
+              onSearch={handleSearch}
+            />
+            <MoviesCardList cards={filterMovies} buttonMore={false} />
+          </main>
+          <Footer />
+        </>
+      )}
     </>
   )
 }

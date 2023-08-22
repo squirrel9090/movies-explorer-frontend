@@ -59,14 +59,14 @@ export const updateUserInfo = ({ name, email }) => {
 export const getAllFilms = () => {
   return fetch(`${BASE_URL}/movies`, {
     headers: {
-      Authorization: '',
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       'Content-Type': 'application/json',
     },
   }).then(getJson)
 }
 
 export const deleteMovie = (id) => {
-  return fetch(`${BASE_URL}/movies/${id}`, {
+  return fetch(`${BASE_URL}/movies?cardId=${id}`, {
     method: 'DELETE',
     headers,
   }).then(getJson)

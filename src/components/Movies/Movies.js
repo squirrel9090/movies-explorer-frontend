@@ -5,14 +5,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import { getAllMovies } from '../../utils/MoviesApi'
-import {
-  getAllFilms,
-  setToken,
-  deleteMovie,
-  savedMovie,
-} from '../../utils/MainApi'
-import { DISPLAY_SETTINGS, SHORT_MOVIE_DURATION } from '../../utils/constants'
+import { DISPLAY_SETTINGS } from '../../utils/constants'
 import { searchMoviesByText } from '../../utils/searchMoviesByText'
+import Preloader from '../Preloader/Preloader'
 
 const moviesDisplay = () => {
   const display = { ...DISPLAY_SETTINGS.default }
@@ -48,7 +43,12 @@ function Movies({ isLoggedIn }) {
       .then((data) => {
         setMovies(data)
       })
-      .then(() => setIsLoading(false))
+      .catch((e) => {
+        console.error(e)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [])
 
   useEffect(() => {
@@ -76,12 +76,23 @@ function Movies({ isLoggedIn }) {
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} />
-      <main className='movies'>
-        <SearchForm filterMovies={filterMovies} page='movies' />
-        <MoviesCardList cards={filterMovies} />
-      </main>
-      <Footer />
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <>
+          <Header isLoggedIn={isLoggedIn} />
+          <main className='movies'>
+            <SearchForm
+              filter={filter}
+              onChangeFilter={setFilter}
+              onSearch={handleSearch}
+              page='movies'
+            />
+            <MoviesCardList cards={filterMovies} />
+          </main>
+          <Footer />
+        </>
+      )}
     </>
   )
 }
