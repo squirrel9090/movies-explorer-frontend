@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CurrentUserContext } from '../../context/CurrentUserContext'
+import Header from '../Header/Header'
 
 const Profile = (props) => {
   const { isLoggedIn, onUpdateUser, logOut, profileMessage } = props
@@ -80,70 +81,73 @@ const Profile = (props) => {
   }
 
   return (
-    <main className='profile'>
-      <section className='profile_container'>
-        <form className='profile__form' onSubmit={handleSubmit}>
-          <h3 className='profile__greeting'>Привет, {name}!</h3>
-          <div className='profile__inputs'>
-            <p className='profile__text'>Имя</p>
-            <div className='profile__area profile__area_type_name'>
-              <input
-                className='profile__settings'
-                type='text'
-                name='name'
-                placeholder='Ваше имя'
-                minLength={2}
-                maxLength={12}
-                required
-                value={name}
-                onChange={handleChangeName}
-              />
+    <>
+      <Header isLoggedIn={isLoggedIn} />
+      <main className='profile'>
+        <section className='profile_container'>
+          <form className='profile__form' onSubmit={handleSubmit}>
+            <h3 className='profile__greeting'>Привет, {name}!</h3>
+            <div className='profile__inputs'>
+              <p className='profile__text'>Имя</p>
+              <div className='profile__area profile__area_type_name'>
+                <input
+                  className='profile__settings'
+                  type='text'
+                  name='name'
+                  placeholder='Ваше имя'
+                  minLength={2}
+                  maxLength={12}
+                  required
+                  value={name}
+                  onChange={handleChangeName}
+                />
+              </div>
+              <span className='profile__error'>{nameError}</span>
+              <div className='profile__area profile__area_type_email'>
+                <input
+                  className='profile__settings'
+                  type='email'
+                  name='email'
+                  placeholder='Ваш email'
+                  required
+                  value={email}
+                  onChange={handleChangeEmail}
+                />
+              </div>
+              <p className='profile__text'>E-mail</p>
             </div>
-            <span className='profile__error'>{nameError}</span>
-            <div className='profile__area profile__area_type_email'>
-              <input
-                className='profile__settings'
-                type='email'
-                name='email'
-                placeholder='Ваш email'
-                required
-                value={email}
-                onChange={handleChangeEmail}
-              />
-            </div>
-            <p className='profile__text'>E-mail</p>
-          </div>
-          <span className='profile__error'>{emailError}</span>
-          <span className='profile__error'>{profileMessage}</span>
-        </form>
-        <form className='profile__form' action='/profile'>
-          {initChange ? (
-            <button
-              className={`profile__button profile__btn_submit button ${
-                formValid ? '' : 'profile__btn_submit_disabled'
-              }`}
-              type='submit'
-              onClick={handleSubmit}
-              disabled={!formValid || buttonDisabled}
-            >
-              Сохранить
-            </button>
-          ) : (
-            <>
-              <input
+            <span className='profile__error'>{emailError}</span>
+            <span className='profile__error'>{profileMessage}</span>
+          </form>
+          <form className='profile__form' action='/profile'>
+            {initChange ? (
+              <button
+                className={`profile__button profile__btn_submit button ${
+                  formValid ? '' : 'profile__btn_submit_disabled'
+                }`}
                 type='submit'
-                className='profile__button'
-                value='Редактировать'
-                onClick={handleClickEditButton}
-              />
-              <Link to='/' className='profile__link' onClick={logOut}>
-                Выйти из аккаунта
-              </Link>
-            </>
-          )}
-        </form>
-      </section>
-    </main>
+                onClick={handleSubmit}
+                disabled={!formValid || buttonDisabled}
+              >
+                Сохранить
+              </button>
+            ) : (
+              <>
+                <input
+                  type='submit'
+                  className='profile__button'
+                  value='Редактировать'
+                  onClick={handleClickEditButton}
+                />
+                <Link to='/' className='profile__link' onClick={logOut}>
+                  Выйти из аккаунта
+                </Link>
+              </>
+            )}
+          </form>
+        </section>
+      </main>
+    </>
   )
 }
 

@@ -35,15 +35,6 @@ function App() {
   const [profileMessage, setProfileMessage] = useState(true)
   const navigate = useNavigate()
 
-  //выход из аккаунта
-  function logOut() {
-    setToken(null)
-    localStorage.removeItem('token')
-    setIsLoggedIn(false)
-    setCurrentUser({})
-    navigate('/signin')
-    console.log('Выход')
-  }
   //получить токен
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -73,7 +64,26 @@ function App() {
         setIsLoggedIn(false)
       }
     }
-  }, [navigate])
+  }, [isLoggedIn])
+
+  /**авторизация пользователя*/
+  function handleLogin(loginData) {
+    login(loginData)
+      .then((res) => {
+        localStorage.setItem('jwt', res.token)
+        navigate('/movies')
+        setIsLoggedIn(true)
+      })
+      .catch((err) => {
+        setIsLoggedIn(false)
+        if (err === 400 || err === 401) {
+          setLoginError('Вы ввели неправильный логин или пароль')
+        }
+        if (err === 500) {
+          setLoginError('На сервере произошла ошибка')
+        }
+      })
+  }
 
   /**зарегистрировать пользователя*/
   function handleRegister(regData) {
@@ -99,23 +109,14 @@ function App() {
       })
   }
 
-  /**авторизация пользователя*/
-  function handleLogin(loginData) {
-    login(loginData)
-      .then((res) => {
-        localStorage.setItem('jwt', res.token)
-        navigate('/movies')
-        setIsLoggedIn(true)
-      })
-      .catch((err) => {
-        setIsLoggedIn(false)
-        if (err === 400 || err === 401) {
-          setLoginError('Вы ввели неправильный логин или пароль')
-        }
-        if (err === 500) {
-          setLoginError('На сервере произошла ошибка')
-        }
-      })
+  //выход из аккаунта
+  function logOut() {
+    setToken(null)
+    localStorage.removeItem('token')
+    setIsLoggedIn(false)
+    setCurrentUser({})
+    navigate('/signin')
+    console.log('Выход')
   }
 
   /**изменить данные пользователя*/

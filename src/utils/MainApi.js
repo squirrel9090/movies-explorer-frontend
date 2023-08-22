@@ -26,7 +26,6 @@ export const register = (data) => {
   return fetch(`${BASE_URL}${'/signup'}`, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
@@ -34,25 +33,18 @@ export const register = (data) => {
 }
 
 export const login = (data) => {
-  const token = localStorage.getItem('token')
-  console.log(token)
   return fetch(`${BASE_URL}${'/signin'}`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   }).then((res) => getResponse(res))
 }
 
-export const getUserData = (token) => {
-  return fetch(`${BASE_URL}${'/users/me'}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
+export const getUserData = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    headers,
   }).then((res) => getResponse(res))
 }
 
@@ -83,10 +75,7 @@ export const deleteMovie = (id) => {
 export const savedMovie = (movie) => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'POST',
-    headers: {
-      Authorization: '',
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify(movie),
   }).then(getJson)
 }
