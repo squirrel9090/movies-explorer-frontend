@@ -1,5 +1,6 @@
 //const BASE_URL = 'https://api.bem.nomoredomains.xyz'
 export const BASE_URL = 'http://localhost:3000'
+const MOVIES_API_URL = 'https://api.nomoreparties.co'
 
 const getResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
@@ -65,7 +66,10 @@ export const updateUserInfo = ({ name, email }) => {
 
 export const getAllFilms = () => {
   return fetch(`${BASE_URL}/movies`, {
-    headers,
+    headers: {
+      Authorization: '',
+      'Content-Type': 'application/json',
+    },
   }).then(getJson)
 }
 
@@ -79,7 +83,10 @@ export const deleteMovie = (id) => {
 export const savedMovie = (movie) => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'POST',
-    headers,
+    headers: {
+      Authorization: '',
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(movie),
   }).then(getJson)
 }
