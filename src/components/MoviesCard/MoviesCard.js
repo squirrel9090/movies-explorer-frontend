@@ -22,10 +22,10 @@ const MoviesCard = ({ card }) => {
     })
   }
 
-  const handleRemove = (id) => {
-    return deleteMovie(id).then(() => {
+  const handleRemove = (movieId) => {
+    return deleteMovie(movieId).then(() => {
       const updateList = list
-        .filter((item) => item.movieId !== card._id)
+        .filter((item) => item.movieId !== card.id)
         .filter((item) => item.movieId !== card.movieId)
       onChange(updateList)
     })
