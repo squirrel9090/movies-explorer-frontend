@@ -9,11 +9,10 @@ import Portfolio from '../Portfolio/Portfolio'
 import Footer from '../Footer/Footer'
 import { useState, useEffect } from 'react'
 
-function Main() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+function Main({ isLoggedIn }) {
   return (
     <>
-      <Header loggedIn={isLoggedIn} />
+      <Header isLoggedIn={isLoggedIn} />
       <main className='main'>
         <Promo />
         <AboutProject />

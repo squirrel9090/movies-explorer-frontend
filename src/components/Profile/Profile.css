@@ -20,6 +20,11 @@
   color: #fff;
 }
 
+.profile__form {
+  display: contents;
+  flex-direction: column;
+}
+
 .profile__inputs {
   width: 100%;
   display: grid;
@@ -101,6 +106,14 @@
 
 .profile__button:disabled {
   opacity: 0.2;
+}
+
+.profile__error {
+  color: #ee3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .profile__link {

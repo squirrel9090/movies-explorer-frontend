@@ -1,10 +1,9 @@
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
 import './Navigation.css'
-import Navbar from '../Navbar/Navbar'
 
-function Navigation({ onClick }) {
-  const [showItems, setShowItems] = useState(true)
+function Navigation() {
+  const [showItems, setShowItems] = useState(false)
 
   const handleToggleMenu = () => setShowItems(!showItems)
   return (

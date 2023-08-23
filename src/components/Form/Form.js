@@ -2,9 +2,16 @@ import './Form.css'
 import { Link } from 'react-router-dom'
 import logo from '../../images/logo/header-logo.svg'
 
-function Form(props) {
-  const { header, children, submit, question, path, link } = props
-
+function Form({
+  header,
+  children,
+  submit,
+  question,
+  path,
+  link,
+  onSubmit,
+  isDisable,
+}) {
   return (
     <section className='form'>
       <div className='form__container'>
@@ -12,9 +19,13 @@ function Form(props) {
           <img className='form__logo' src={logo} alt='Логотип'></img>
         </Link>
         <h2 className='form__title'>{header}</h2>
-        <form className='form__inputs'>
+        <form onSubmit={onSubmit} className='form__inputs'>
           <div className='form__items'> {children} </div>
-          <button type='submit' className='form__button button' disabled>
+          <button
+            type='submit'
+            className='form__button button'
+            disabled={isDisable}
+          >
             {submit}
           </button>
         </form>

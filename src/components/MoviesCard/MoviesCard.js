@@ -1,34 +1,78 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import './MoviesCard.css'
-import Film from '../../images/film.png'
+import { deleteMovie, savedMovie } from '../../utils/MainApi'
+import { durationConverter } from '../../utils/durationConverter'
 
-function MoviesCard() {
-  const location = useLocation()
+const SaveContext = React.createContext({
+  list: [],
+  onChange: (f) => f,
+})
+const MOVIES_API_URL = 'https://api.nomoreparties.co'
+const MoviesCard = ({ card }) => {
+  const { list, onChange } = useContext(SaveContext)
+  const savedCard = list.find((item) => item.movieId === card.id)
+
+  function handleFavoriteToogle() {
+    console.log('card:', card)
+
+    savedMovie(card).then((data) => {
+      console.log('data', data)
+      onChange([...list, data])
+    })
+  }
+
+  const handleRemove = (movieId) => {
+    return deleteMovie(movieId).then(() => {
+      const updateList = list
+        .filter((item) => item.movieId !== card.id)
+        .filter((item) => item.movieId !== card.movieId)
+      onChange(updateList)
+    })
+  }
+
+  const { pathname } = useLocation()
+  console.log(savedCard)
 
   return (
     <li className='card'>
       <a
-        href='https://www.youtube.com/watch?v=_zIK7IloRM4'
+        href={card.trailerLink}
         className='card__link link'
         target='_blank'
         rel='noreferrer'
       >
-        <img className='card__img' src={Film} alt='Фотография из фильма' />
+        <img
+          className='card__img'
+          alt={card.nameRU}
+          src={
+            typeof card?.image === 'string'
+              ? card?.image
+              : MOVIES_API_URL + card.image.url
+          }
+        />
       </a>
-      {location.pathname === '/movies' && (
+      {pathname === '/saved-movies' ? (
         <button
-          className='card__btn card__btn__blank button'
+          className='card__btn card__btn_delete '
           type='button'
+          onClick={() => handleRemove(card._id)}
         ></button>
-      )}
-      {location.pathname === '/saved-movies' && (
-        <button className='card__btn card__btn_delete ' type='button'></button>
+      ) : (
+        <button
+          type='button'
+          className={`card__button card__button${
+            savedCard ? '_active' : '_inactive'
+          }`}
+          onClick={handleFavoriteToogle}
+        >
+          Сохранить
+        </button>
       )}
       <div className='card__content'>
-        <h2 className='card__name'>33 слова о дизайне</h2>
+        <h2 className='card__name'>{card.nameRU}</h2>
 
-        <p className='card__duration'>1ч 42м</p>
+        <p className='card__duration'>{durationConverter(card.duration)}</p>
       </div>
     </li>
   )
