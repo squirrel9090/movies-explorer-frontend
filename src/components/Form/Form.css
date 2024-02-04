@@ -93,6 +93,10 @@
   line-height: 12px;
 }
 
+.form__common-error {
+  color: #ee3465;
+}
+
 .form__error-display {
   opacity: 1;
 }
