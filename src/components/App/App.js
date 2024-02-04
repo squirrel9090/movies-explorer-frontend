@@ -7,7 +7,7 @@ import Register from '../Register/Register'
 import Profile from '../Profile/Profile'
 import Login from '../Login/Login'
 import NotFound from '../NotFound/NotFound'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { CurrentUserContext } from '../../context/CurrentUserContext'
 import {
   Routes,
@@ -22,12 +22,21 @@ import {
   register,
   setToken,
   updateUserInfo,
+  getAllFilms,
+  savedMovie,
+  getSavedMovies,
+  deleteMovie,
 } from '../../utils/MainApi'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 function App() {
   //Стейт для данных пользователя
   const [currentUser, setCurrentUser] = useState({})
+  //Стейт для карточек
+  const [savedCards, setSavedCards] = useState([])
+  //Стейт для всех фильмов
+  const [allCard, setAllCard] = useState([])
+
   //стейт залогинин пользователь или нет
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [loginError, setLoginError] = useState(true)
@@ -134,6 +143,94 @@ function App() {
         }
       })
   }
+
+  //добавляем новое свойство saved
+  function handleSavedLike(card, saved) {
+    return card.map((m) => {
+      m.isLiked = saved.some((s) => s.movieId === m.movieId)
+      return m
+    })
+  }
+
+  //Получаем информацию о пользователе и карточке
+  useEffect(() => {
+    if (isLoggedIn) {
+      const token = localStorage.getItem('jwt')
+      handleSavedLike(allCard, savedCards)
+      //handleSavedLike(savedCards)
+      Promise.all([getAllFilms(token), getSavedMovies(token)])
+        .then(([userData, savedCards]) => {
+          //
+          const blendedFilms = userData.map((card) => {
+            const localMovie = savedCards.find(
+              (localMovie) => localMovie.movieId === card.id
+            )
+
+            console.log('localMovie', localMovie)
+            /**единое название для всех фильмов*/
+            card._id = localMovie !== undefined ? localMovie._id : ''
+            card.movieId = card.id
+            card.thumbnail = `https://api.nomoreparties.co/${card.image.url}`
+            card.saved = localMovie !== undefined
+            return card
+          })
+          //
+          setCurrentUser(userData)
+          setSavedCards(savedCards.reverse())
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }, [isLoggedIn])
+
+  // лайк карточки
+  function handleSaveCard(card) {
+    const token = localStorage.getItem('jwt')
+    return savedMovie(card, token)
+      .then((newCard) => {
+        localStorage.removeItem('saved-movies')
+        setSavedCards((prev) => [newCard, ...prev], (card.saved = true))
+        console.log('[newCard, ...savedCards]: ', [newCard, ...savedCards])
+      })
+      .catch((error) => console.log('Ошибка при сохранении фильма', error))
+  }
+
+  // удаление карточки
+  function handleCardDelete(card) {
+    //console.log('handleCardDelete card', card)
+    const token = localStorage.getItem('jwt')
+    const cardToDelete = savedCards.find((c) => c.movieId === card.movieId)
+    //console.log(cardToDelete._id)
+    return deleteMovie(cardToDelete._id)
+      .then(() => {
+        setSavedCards(
+          (savedCards) =>
+            savedCards.map((savedCard) => {
+              if (savedCard._id !== card._id) {
+                savedCard.saved = false
+              }
+              return savedCard
+            }),
+          /**сохранить отредактированный список фильмов в локальное хранилище*/
+          localStorage.setItem('local-movies', JSON.stringify(cardToDelete)),
+          /**сохранить список сохраненных фильмов в локальное хранилище*/
+          localStorage.setItem(
+            'saved-movies',
+            JSON.stringify(savedCards.filter((movie) => movie.saved))
+          )
+        )
+        //localStorage.removeItem('saved-movies')
+      })
+      .catch((error) => console.log('Ошибка при удалении фильма', error))
+  }
+
+  const render = (loggedIn) => {
+    if (loggedIn) {
+      navigate('/')
+    }
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='app'>
@@ -142,13 +239,24 @@ function App() {
           <Route
             path='/movies'
             element={
-              <ProtectedRoute element={Movies} isLoggedIn={isLoggedIn} />
+              <ProtectedRoute
+                element={Movies}
+                onLikeCard={handleSaveCard}
+                isLoggedIn={isLoggedIn}
+                savedCards={savedCards}
+                onDelete={handleCardDelete}
+              />
             }
           />
           <Route
             path='/saved-movies'
             element={
-              <ProtectedRoute element={SavedMovies} isLoggedIn={isLoggedIn} />
+              <ProtectedRoute
+                element={SavedMovies}
+                isLoggedIn={isLoggedIn}
+                savedCards={savedCards}
+                onDelete={handleCardDelete}
+              />
             }
           />
           <Route

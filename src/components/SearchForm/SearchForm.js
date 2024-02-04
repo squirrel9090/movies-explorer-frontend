@@ -1,6 +1,6 @@
 import './SearchForm.css'
 import { useLocation } from 'react-router-dom'
-import Toggle from '../CheckBox/CheckBox'
+import CheckBox from '../CheckBox/CheckBox'
 
 const SearchForm = (props) => {
   const { filter, onChangeFilter, onSearch } = props
@@ -29,7 +29,7 @@ const SearchForm = (props) => {
           <button type='submit' className='seachform__btn button'></button>
         </div>
         <div className='search__toggle search__toggle-update'>
-          <Toggle
+          <CheckBox
             className='search__checkbox'
             value={filter?.isShortMovies}
             onChange={(value) =>

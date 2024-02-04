@@ -22,9 +22,11 @@ const moviesDisplay = () => {
   return display
 }
 
-function Movies({ isLoggedIn }) {
+function Movies(props) {
+  const { isLoggedIn, onLikeCard, onDelete, savedCards } = props
+
   const [isLoading, setIsLoading] = useState(false)
-  const [movies, setMovies] = useState([])
+  const [cards, setMovies] = useState([])
   const [filterMovies, setFilterMovies] = useState([])
   const [filter, setFilter] = useState(() => {
     const savedFilter = window.localStorage.getItem('filter')
@@ -36,6 +38,11 @@ function Movies({ isLoggedIn }) {
       }
     )
   })
+
+  /**обновить локальное хранилище при изменении состояния movies*/
+  useEffect(() => {
+    localStorage.setItem('local-movies', JSON.stringify(cards))
+  }, [cards])
 
   useEffect(() => {
     setIsLoading(true)
@@ -53,7 +60,7 @@ function Movies({ isLoggedIn }) {
 
   useEffect(() => {
     handleSearch(filter)
-  }, [movies])
+  }, [cards])
 
   useEffect(() => {
     handleSearch(filter)
@@ -68,7 +75,7 @@ function Movies({ isLoggedIn }) {
   }, [filter])
 
   const handleSearch = () => {
-    const result = searchMoviesByText(movies, filter.searchText).filter(
+    const result = searchMoviesByText(cards, filter.searchText).filter(
       (movie) => (filter.isShortMovies ? movie.duration < 40 : true)
     )
     setFilterMovies(result)
@@ -88,7 +95,12 @@ function Movies({ isLoggedIn }) {
               onSearch={handleSearch}
               page='movies'
             />
-            <MoviesCardList cards={filterMovies} />
+            <MoviesCardList
+              cards={filterMovies}
+              savedCards={savedCards}
+              onLikeCard={onLikeCard}
+              onDelete={onDelete}
+            />
           </main>
           <Footer />
         </>

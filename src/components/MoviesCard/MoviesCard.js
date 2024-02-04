@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import './MoviesCard.css'
 import { deleteMovie, savedMovie } from '../../utils/MainApi'
@@ -9,27 +9,30 @@ const SaveContext = React.createContext({
   onChange: (f) => f,
 })
 const MOVIES_API_URL = 'https://api.nomoreparties.co'
-const MoviesCard = ({ card }) => {
-  const { list, onChange } = useContext(SaveContext)
-  const savedCard = list.find((item) => item.movieId === card.id)
+const MoviesCard = ({
+  card,
+  handleSaveCard,
+  onLikeCard,
+  savedCards,
+  onDeleteLikeCard,
+}) => {
+  const [filterMovies, setFilterMovies] = useState([])
+  const savedCard = savedCards.some((item) => item.id === card.id)
+  console.log('card:', card)
 
-  function handleFavoriteToogle() {
-    console.log('card:', card)
-
-    savedMovie(card).then((data) => {
-      console.log('data', data)
-      onChange([...list, data])
-    })
+  // постановка или снятие лайка
+  const handleLikeCard = () => {
+    if (savedCard) {
+      //console.log('love')
+      onDeleteLikeCard(card)
+    } else {
+      onLikeCard(card)
+    }
   }
 
-  const handleRemove = (movieId) => {
-    return deleteMovie(movieId).then(() => {
-      const updateList = list
-        .filter((item) => item.movieId !== card.id)
-        .filter((item) => item.movieId !== card.movieId)
-      onChange(updateList)
-    })
-  }
+  const btnClass = card.saved
+    ? 'card__button_saved card__btn card__button'
+    : 'card__button_blank card__btn card__button'
 
   const { pathname } = useLocation()
   console.log(savedCard)
@@ -52,22 +55,19 @@ const MoviesCard = ({ card }) => {
           }
         />
       </a>
-      {pathname === '/saved-movies' ? (
+      {pathname === '/movies' && (
+        <button
+          type='button'
+          className={btnClass}
+          onClick={handleLikeCard}
+        ></button>
+      )}
+      {pathname === '/saved-movies' && (
         <button
           className='card__btn card__btn_delete '
           type='button'
-          onClick={() => handleRemove(card._id)}
+          onClick={handleLikeCard}
         ></button>
-      ) : (
-        <button
-          type='button'
-          className={`card__button card__button${
-            savedCard ? '_active' : '_inactive'
-          }`}
-          onClick={handleFavoriteToogle}
-        >
-          Сохранить
-        </button>
       )}
       <div className='card__content'>
         <h2 className='card__name'>{card.nameRU}</h2>

@@ -91,8 +91,7 @@ function Login({ onLogin, loginError /*setLoginError*/ }) {
           <input
             type='email'
             className='form__field'
-            defaultValue='test@test.ru'
-            placeholder='test@test.ru'
+            placeholder='email'
             required
             name='email'
             value={email}

@@ -66,9 +66,12 @@ export const getAllFilms = () => {
 }
 
 export const deleteMovie = (id) => {
-  return fetch(`${BASE_URL}/movies/${id}`, {
+  return fetch(`${BASE_URL}${'/movies/'}${id}`, {
     method: 'DELETE',
-    headers,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      'Content-Type': 'application/json',
+    },
   }).then(getJson)
 }
 
@@ -82,12 +85,23 @@ export const savedMovie = (obj) => {
       duration: obj.duration,
       year: obj.year,
       description: obj.description,
-      image: MOVIES_API_URL + obj.image.url,
+      image: `${MOVIES_API_URL + obj.image.url}`,
       trailerLink: obj.trailerLink,
       thumbnail: MOVIES_API_URL + obj.image.formats.thumbnail.url,
       movieId: obj.id,
       nameRU: obj.nameRU,
       nameEN: obj.nameEN,
     }),
+  }).then(getJson)
+}
+
+// получение сохранённых ранее фильмов
+export const getSavedMovies = (token) => {
+  return fetch(`${BASE_URL}/movies`, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    },
   }).then(getJson)
 }

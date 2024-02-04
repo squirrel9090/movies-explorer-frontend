@@ -2,7 +2,14 @@ import './MoviesCardList.css'
 import React, { useEffect, useState } from 'react'
 import MoviesCard from '../MoviesCard/MoviesCard'
 
-const MoviesCardList = ({ cards = [], isCanLoadMore = true }) => {
+function MoviesCardList(props) {
+  const {
+    cards,
+    isCanLoadMore = true,
+    savedCards,
+    onLikeCard,
+    onDelete,
+  } = props
   const [showCount, setShowCount] = useState(0)
 
   const canLoadMore = isCanLoadMore && showCount < cards.length
@@ -51,7 +58,13 @@ const MoviesCardList = ({ cards = [], isCanLoadMore = true }) => {
       {Cards.length ? (
         <ul className='moviescardlist__list'>
           {Cards.map((card) => (
-            <MoviesCard key={card.id} card={card} />
+            <MoviesCard
+              key={card.id}
+              card={card}
+              onLikeCard={onLikeCard}
+              onDeleteLikeCard={onDelete}
+              savedCards={savedCards}
+            />
           ))}
         </ul>
       ) : (

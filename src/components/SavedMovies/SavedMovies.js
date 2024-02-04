@@ -8,10 +8,11 @@ import { getAllFilms } from '../../utils/MainApi'
 import { searchMoviesByText } from '../../utils/searchMoviesByText'
 import Preloader from '../Preloader/Preloader'
 
-function SavedMovies(props) {
-  const { cards = [] } = props
+function SavedMovies({ isLoggedIn, savedCards, onDelete, handleSaveCard }) {
+  // Переменные состояния фильмов
+  const [cards, setCards] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [filterMovies, setFilterMovies] = useState(cards)
+  const [filterMovies, setFilterMovies] = useState([])
   const [filter, setFilter] = useState({
     searchText: '',
     isShortMovies: false,
@@ -19,9 +20,11 @@ function SavedMovies(props) {
 
   useEffect(() => {
     setIsLoading(true)
+    const savedMovies = JSON.parse(localStorage.getItem('saved-movies') || '[]')
     getAllFilms()
       .then((data) => {
-        setFilterMovies(data)
+        localStorage.setItem('saved-movies', JSON.stringify(data))
+        setCards(data)
       })
       .catch((e) => {
         console.error(e)
@@ -33,11 +36,19 @@ function SavedMovies(props) {
 
   useEffect(() => {
     handleSearch(filter)
+  }, [cards])
+
+  useEffect(() => {
+    handleSearch(filter)
   }, [filter.isShortMovies])
+
+  useEffect(() => {
+    localStorage.setItem('saved-movies', JSON.stringify(cards))
+  }, [handleSaveCard])
 
   const handleSearch = () => {
     const result = searchMoviesByText(cards, filter.searchText).filter(
-      (cards) => (filter.isShortMovies ? cards.duration < 40 : true)
+      (cards) => (filter.isShortMovies ? cards.duration <= 40 : true)
     )
     setFilterMovies(result)
   }
@@ -48,14 +59,19 @@ function SavedMovies(props) {
         <Preloader />
       ) : (
         <>
-          <Header isLoggedIn={props.isLoggedIn} />
+          <Header isLoggedIn={isLoggedIn} />
           <main className='savedmovies'>
             <SearchForm
               filter={filter}
               onChangeFilter={setFilter}
               onSearch={handleSearch}
             />
-            <MoviesCardList cards={filterMovies} buttonMore={false} />
+            <MoviesCardList
+              cards={filterMovies}
+              buttonMore={false}
+              savedCards={savedCards}
+              onDelete={onDelete}
+            />
           </main>
           <Footer />
         </>
